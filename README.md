@@ -8,3 +8,7 @@ Soy Ingeniera Industrial quiero aprender programación para darle un plus a mi c
 
 Hola Soy Carolina Chacua Delgado, rol Analista
 Soy ingenieria Civil de la Universidad Nacional, Actualmente vivo en Pradera Valle.
+
+Hola soy Carmen Elena Realpe  Rol  Desarrollador
+Soy Ingeniera de Sistemas, vivo en Pasto, estoy haciendo este curso 
+porque quiero Aprendar las nuevas herramientas y aprender de mis compañeros.
