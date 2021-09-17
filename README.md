@@ -12,3 +12,6 @@ Soy ingenieria Civil de la Universidad Nacional, Actualmente vivo en Pradera Val
 Hola soy Carmen Elena Realpe  Rol  Desarrollador
 Soy Ingeniera de Sistemas, vivo en Pasto, estoy haciendo este curso 
 porque quiero Aprendar las nuevas herramientas y aprender de mis compañeros.
+
+Hola soy Johanna Saldarriaga Arenas, Rol Product Owner
+Soy Profesional en Criminalistica, pero actualmente no estoy ejerciendo la profesión y vivo en Medellín
