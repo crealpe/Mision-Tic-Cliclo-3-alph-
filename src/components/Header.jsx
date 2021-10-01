@@ -11,12 +11,12 @@ const Header = () => {
             <li></li>
             <li>
                 <Link to='/'>
-                <button className="boton">Iniciar Sesion</button>
+                <button className="boton">Inicia Sesion</button>
                 </Link>
             </li>
             <li>
             <Link to='/registro'>
-                <button className="boton">Registrarse</button>
+                <button className="boton">Registrate</button>
                 </Link>
             </li>    
          </ul>
