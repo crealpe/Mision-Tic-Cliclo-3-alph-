@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.botonGenerico {
+  border: 0px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: bolder;
+  
+}
+.botonGenerico:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.secondaryButton {
+  background-color:rgba(57, 54, 219, 0.44);
+  color:white;
+}
+.contenido{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+  
+}
+
+.titulo{
+  margin: 1rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+
+.input{
+  height: 35px;
+  border-radius: 25px;
+  padding: 0 10px 0 10px;
+  margin: 10px;
+  border-width: 1px;
+  }
+
+.botoninicio{
+  background-color: #3936DB70;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0 10px 0 10px;
+  margin: 10px;
+}
