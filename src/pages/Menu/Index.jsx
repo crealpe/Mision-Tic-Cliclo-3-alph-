@@ -51,7 +51,7 @@ const Venta = () => {
                 onClick={() => {
                     setMostrarTabla(!mostrarTabla);
                 }}
-                className="botoninicio">
+                className="botonGenerico secondaryButton my-4">
                 {textoBoton}
             </button> 
         </div>
