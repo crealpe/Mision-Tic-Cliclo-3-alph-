@@ -20,7 +20,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>   
-                    <Link to= '/menu/rol'> 
+                    <Link to= '/menu/actualizar-usuario'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Roles y Usuarios</button>
                     </Link>
                 </li>

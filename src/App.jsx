@@ -1,9 +1,8 @@
 import 'styles/styles.css';
-import ActualizarUsuario from 'pages/ActualizarUsuario';
+import ActualizarUsuario from 'pages/Menu/ActualizarUsuario';
 import Index from 'pages/Index';
 import Registro from 'pages/Registro';
 import IndexM from 'pages/Menu/Index';
-import Rol from 'pages/Menu/Rol';
 import Producto from 'pages/Menu/Producto';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from 'layouts/Layout';
@@ -14,11 +13,11 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route path={['/menu','/menu/rol','/menu/producto']}>
+          <Route path={['/menu','/menu/actualizar-usuario','/menu/producto']}>
             <LayoutMenu> 
               <Switch>
-                <Route path='/menu/rol'>
-                  <Rol />
+                <Route path='/menu/actualizar-usuario'>
+                  <ActualizarUsuario />
                 </Route> 
                 <Route path='/menu/producto'>
                   <Producto />
@@ -29,11 +28,6 @@ function App() {
               </Switch>
             </LayoutMenu>
           </Route>
-          <Route path="/actualizar-usuario">
-            <Layout> 
-              <ActualizarUsuario />
-            </Layout> 
-          </Route> 
           <Route path={['/','/registro']}>
             <Layout> 
               <Switch>
