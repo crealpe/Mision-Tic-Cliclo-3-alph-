@@ -141,7 +141,7 @@ const TablaVentas = ({ listaVentas }) => {
             <h2 className="titulo">Lista de Ventas</h2>
             <table cellspacing="5" cellpadding="10">
                 <thead>
-                    <tr>
+                    <tr className="bg-green-50">
                     <th className="border-2"> Fecha </th>
                     <th  className="border-2"> No. Venta </th>
                     <th  className="border-2"> Id Cliente </th>
@@ -150,6 +150,7 @@ const TablaVentas = ({ listaVentas }) => {
                     <th  className="border-2"> Id Producto </th>
                     <th  className="border-2"> Cantidad </th>
                     <th  className="border-2"> Valor </th>
+                    <th className="border-2"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,6 +165,7 @@ const TablaVentas = ({ listaVentas }) => {
                             <td   className="border-2">{ventas.idProducto}</td>
                             <td   className="border-2">{ventas.cantidad}</td>
                             <td   className="border-2">{ventas.valor}</td>
+                            <td   className="border-2"><button className="border-2 bg-green-100 rounded-lg text-sm">Actualizar</button></td>
                         </tr>
                         );
                     })}
