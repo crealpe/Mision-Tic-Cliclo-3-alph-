@@ -1,4 +1,5 @@
 import 'styles/styles.css';
+import ActualizarUsuario from 'pages/ActualizarUsuario';
 import Index from 'pages/Index';
 import Registro from 'pages/Registro';
 import IndexM from 'pages/Menu/Index';
@@ -28,6 +29,11 @@ function App() {
               </Switch>
             </LayoutMenu>
           </Route>
+          <Route path="/actualizar-usuario">
+            <Layout> 
+              <ActualizarUsuario />
+            </Layout> 
+          </Route> 
           <Route path={['/','/registro']}>
             <Layout> 
               <Switch>
@@ -40,7 +46,6 @@ function App() {
               </Switch>  
             </Layout>   
           </Route> 
-          
         </Switch>
      </Router>
     </div>
