@@ -14,9 +14,7 @@ const Header = () => {
                     <Link to= '/registro'>
                         <button type="button" className="botonGenerico secondaryButton mx-4 w-36">Registrar</button>
                     </Link>  
-                    <Link to= '/'>
-                        <button type="button" className="botonGenerico secondaryButton mx-4 w-36">Salir</button>
-                    </Link>    
+                      
                     
                 </li>
             </ul>

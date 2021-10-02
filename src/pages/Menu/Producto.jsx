@@ -86,8 +86,8 @@ const FormularioCreacionProductos=({setMostrarTabla, listaProductos, setProducto
                         <label className="mx-5" htmlFor='estado'>Estado Producto: </label>
                         <select className="input" defaultValue="0" name="estado">
                             <option value = "0" disabled> Seleccione Estado</option>
-                            <option value="disponible">Disponible</option>
-                            <option value="nodisponible">No Disponible</option>
+                            <option value="Disponible">Disponible</option>
+                            <option value="No Disponible">No Disponible</option>
                             
                         </select>
                    
