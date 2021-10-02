@@ -9,14 +9,20 @@ const Sidebar = () => {
                 </li>
                 <div  className="my-10">
 
-                <li>   
+                <li>  
+                    <Link to= '/menu'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Ventas</button>
+                    </Link>
                 </li>
                 <li>   
+                    <Link to= '/menu/producto'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Productos</button>
+                    </Link>
                 </li>
                 <li>   
+                    <Link to= '/menu/rol'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Roles y Usuarios</button>
+                    </Link>
                 </li>
                 <li>   
                 <Link to= '/'>

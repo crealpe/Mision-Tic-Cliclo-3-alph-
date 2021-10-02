@@ -2,7 +2,8 @@ import 'styles/styles.css';
 import Index from 'pages/Index';
 import Registro from 'pages/Registro';
 import IndexM from 'pages/Menu/Index';
-import Venta from 'pages/Menu/Venta';
+import Rol from 'pages/Menu/Rol';
+import Producto from 'pages/Menu/Producto';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from 'layouts/Layout';
 import LayoutMenu from 'layouts/LayoutMenu';
@@ -12,11 +13,14 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route path={['/menu','/menu/ventas']}>
+          <Route path={['/menu','/menu/rol','/menu/producto']}>
             <LayoutMenu> 
               <Switch>
-              <Route path='/menu/ventas'>
-                  <Venta />
+                <Route path='/menu/rol'>
+                  <Rol />
+                </Route> 
+                <Route path='/menu/producto'>
+                  <Producto />
                 </Route> 
                 <Route path='/menu'>
                   <IndexM />

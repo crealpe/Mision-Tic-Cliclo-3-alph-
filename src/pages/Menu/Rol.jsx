@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Venta = () => {
+const Rol = () => {
     return (
         <div>
-           menu ventas 
+            roles
         </div>
     )
 }
 
-export default Venta
+export default Rol

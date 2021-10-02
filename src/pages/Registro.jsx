@@ -3,7 +3,7 @@ import React from 'react'
 const Registro = () => {
     return (
         <div>
-             <h2 className="titulo">Crea tu cuenta</h2>
+            <h2 className="titulo">Crea tu cuenta</h2>
             <form>
                 <div className="contenido">
                     <label>Nombre: </label>
