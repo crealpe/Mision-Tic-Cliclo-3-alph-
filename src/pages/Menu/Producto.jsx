@@ -10,23 +10,22 @@ const Producto = () => {
     const [productos, setProductos] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
-    
+    const obtenerProductos = async () => {
+      const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
+      await axios
+        .request(options)
+        .then(function (response) {
+          setProductos(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+      setEjecutarConsulta(false);
+    }    
     useEffect(() => {
-        console.log('consulta', ejecutarConsulta);
-        if (ejecutarConsulta) {
-            const obtenerProductos = async () => {
-                const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
-                await axios
-                  .request(options)
-                  .then(function (response) {
-                    setProductos(response.data);
-                  })
-                  .catch(function (error) {
-                    console.error(error);
-                  });
-                setEjecutarConsulta(false);
-            }    
-        }
+      if (ejecutarConsulta) {
+        obtenerProductos();        
+      }
     }, [ejecutarConsulta]);
 
 
@@ -44,7 +43,7 @@ const Producto = () => {
             
             {mostrarTabla ? (
                 
-                <TablaProductos listaProductos={productos} />
+                <TablaProductos listaProductos={productos} setEjecutarConsulta={setEjecutarConsulta} setMostrarTabla={setMostrarTabla}/>
            ) : (
                 <FormularioCreacionProductos
                 setMostrarTabla={setMostrarTabla}
@@ -174,7 +173,7 @@ const TablaProductos = ({ listaProductos,setEjecutarConsulta,setMostrarTabla}) =
     );
   };
 
-  const FilaProducto = ({ productos, setEjecutarConsulta}) => {
+  const FilaProducto = ({ productos, setEjecutarConsulta, setMostrarTabla}) => {
     const [edit, setEdit] = useState(false);
     const [infoNuevoProducto, setInfoNuevoProducto] = useState({
         nombre: productos.nombre,
@@ -183,7 +182,6 @@ const TablaProductos = ({ listaProductos,setEjecutarConsulta,setMostrarTabla}) =
 
     });
     const actualizarProducto = async () => {
-        //enviar la info al backend
         const options = {
           method: 'PATCH',
           url: 'http://localhost:5000/productos/editar/',
@@ -195,12 +193,12 @@ const TablaProductos = ({ listaProductos,setEjecutarConsulta,setMostrarTabla}) =
           .request(options)
           .then(function (response) {
             console.log(response.data);
-            toast.success('Producto modificado con éxito');
+            toast.success('Producto con éxito');
             setEdit(false);
             setEjecutarConsulta(true);
           })
           .catch(function (error) {
-            toast.error('Error modificando el Producto');
+            toast.error('Error modificando el producto');
             console.error(error);
         });
         

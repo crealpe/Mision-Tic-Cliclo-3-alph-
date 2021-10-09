@@ -59,7 +59,6 @@ const Venta = () => {
 
 const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
     const form = useRef(null);
-    console.log("estos datos llevo: ",listaVentas);
     const submitForm = async (e) => {
         e.preventDefault();
         const fd = new FormData(form.current);
@@ -215,7 +214,6 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta,setMostrarTabla}) => {
 
 const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
     const [edit, setEdit] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
     const [infoNuevaVenta, setInfoNuevaVenta] = useState({
         fecha: venta.fecha,
         identificacionC: venta.identificacionC,
@@ -228,8 +226,7 @@ const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
 
     });
     const actualizarVenta = async () => {
-        //enviar la info al backend
-        const options = {
+          const options = {
           method: 'PATCH',
           url: 'http://localhost:5000/ventas/editar/',
           headers: { 'Content-Type': 'application/json' },
