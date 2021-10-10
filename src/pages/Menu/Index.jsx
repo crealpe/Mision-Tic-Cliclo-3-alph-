@@ -59,6 +59,25 @@ const Venta = () => {
 
 const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
     const form = useRef(null);
+    const [productos, setProductos] = useState([]);
+    const obtenerProductos = async () => {
+      const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
+      await axios
+        .request(options)
+        .then(function (response) {
+          setProductos(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+      
+    }    
+    useEffect(() => {
+     obtenerProductos();        
+    
+    }, [productos]);
+
+
     const submitForm = async (e) => {
         e.preventDefault();
         const fd = new FormData(form.current);
@@ -125,10 +144,12 @@ const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
                         <label className="mx-5" htmlFor='producto'>Producto: </label>
                         <select className="input" defaultValue="0" name="producto">
                             <option value = "0" disabled> Seleccione Producto</option>
-                            <option value="Producto1">Producto1</option>
-                            <option value="Producto2">Producto2</option>
-                            <option value="Producto3">Producto3</option>
-                            <option value="Producto4">Producto4</option>
+                            {productos.map((productos) => {
+                                return (
+                                  <option value={productos.nombre}>{productos.nombre}</option>
+                                );
+                            })}
+                            
                         </select>
                     </li>   
                     <li className="flex flex-col">
@@ -214,6 +235,24 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta,setMostrarTabla}) => {
 
 const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
     const [edit, setEdit] = useState(false);
+    const [productos, setProductos] = useState([]);
+    const obtenerProductos = async () => {
+      const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
+      await axios
+        .request(options)
+        .then(function (response) {
+          setProductos(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+      
+    }    
+    useEffect(() => {
+     obtenerProductos();        
+    
+    }, [productos]);
+
     const [infoNuevaVenta, setInfoNuevaVenta] = useState({
         fecha: venta.fecha,
         identificacionC: venta.identificacionC,
@@ -303,10 +342,11 @@ const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
                       setInfoNuevaVenta({ ...infoNuevaVenta, producto: e.target.value })
                   }
                 >
-                    <option value="Producto1">Producto1</option>
-                    <option value="Producto2">Producto2</option>
-                    <option value="Producto3">Producto3</option>
-                    <option value="Producto4">Producto4</option>
+                    {productos.map((productos) => {
+                        return (
+                          <option value={productos.nombre}>{productos.nombre}</option>
+                        );
+                    })}
                 </select>
               </td>
               <td>
