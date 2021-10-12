@@ -79,7 +79,7 @@ const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})
       method: 'POST',
       url: 'http://localhost:5000/usuarios/nuevo',
       headers: { 'Content-Type': 'application/json' },
-      data: { nombre: nuevoUsuario.nombre, valor:nuevoUsuario.valor,estado:nuevoUsuario.estado},
+      data: { nombre: nuevoUsuario.nombre, rol:nuevoUsuario.rol,estado:nuevoUsuario.estado},
       };
 
       await axios
@@ -104,14 +104,20 @@ const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})
                       <label className="mx-5" htmlFor='nombre'>Nombre Usuario: </label>
                       <input className="input" type='text' name="nombre" placeholder='Nombre usuario' required></input>
                   
-                      <label className="mx-5" htmlFor='valor'>Valor Usuario: </label>
-                      <input className="input" type="number" name = "valor" placeholder='Valor' required></input>
+                      <label className="mx-5" htmlFor='rol'>Rol Usuario: </label>
+                      <select className="input" defaultValue="0" name="rol">
+                          <option value = "0" disabled> Seleccione Rol</option>
+                          <option value="Administrador">Administrador</option>
+                          <option value="Vendedor">Vendedor</option>
+                                                    
+                      </select>
                   
                       <label className="mx-5" htmlFor='estado'>Estado Usuario: </label>
                       <select className="input" defaultValue="0" name="estado">
                           <option value = "0" disabled> Seleccione Estado</option>
-                          <option value="Disponible">Disponible</option>
-                          <option value="No Disponible">No Disponible</option>
+                          <option value="Pendiente">Pendiente</option>
+                          <option value="Autorizado">Autorizado</option>
+                          <option value="No autorizado">No autorizado</option>
                           
                       </select>
                  
@@ -139,7 +145,7 @@ const TablaUsuarios = ({ listaUsuarios,setEjecutarConsulta,setMostrarTabla}) => 
 
   return (
       <div>
-          <h2 className="titulo">Lista de Usuarios</h2>
+          <h2 className="titulo">Usuarios</h2>
           <label className="mx-5">Busqueda: </label>
           <input className = "input" type="text"
               value={busqueda}
@@ -149,7 +155,7 @@ const TablaUsuarios = ({ listaUsuarios,setEjecutarConsulta,setMostrarTabla}) => 
               <thead>
                   <tr className="bg-green-50">
                   <th  className="border-2"> Usuario </th>
-                  <th  className="border-2"> Valor </th>
+                  <th  className="border-2"> Rol </th>
                   <th  className="border-2"> Estado </th>
                   <th className="border-2"></th>
                   </tr>
@@ -177,7 +183,7 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
   const [edit, setEdit] = useState(false);
   const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
       nombre: usuarios.nombre,
-      valor: usuarios.valor,
+      rol: usuarios.rol,
       estado: usuarios.estado
 
   });
@@ -221,22 +227,23 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
             </td>
             
             <td>
-              <input
-                  className='bg-gray-50 border border-gray-400 w-14 p-0.5 rounded-lg m-0.5'
-                  type='text'
-                  value={infoNuevoUsuario.valor}
-                  onChange={(e) =>
-                      setInfoNuevoUsuario({ ...infoNuevoUsuario, valor: e.target.value })
-                  }
-              />
+              <select className='bg-gray-50 border border-gray-400 w-28 p-0.5 rounded-lg m-0.5'
+              value ={infoNuevoUsuario.rol} onChange={(e) =>
+                  setInfoNuevoUsuario({ ...infoNuevoUsuario, rol: e.target.value })
+              }>
+                          <option value="Administrador">Administrador</option>
+                          <option value="Vendedor">Vendedor</option>
+                          
+              </select>
             </td>
             <td>
               <select className='bg-gray-50 border border-gray-400 w-28 p-0.5 rounded-lg m-0.5'
               value ={infoNuevoUsuario.estado} onChange={(e) =>
                   setInfoNuevoUsuario({ ...infoNuevoUsuario, estado: e.target.value })
               }>
-                          <option value="Disponible">Disponible</option>
-                          <option value="No Disponible">No Disponible</option>
+                          <option value="Pendiente">Pendiente</option>
+                          <option value="Autorizado">Autorizado</option>
+                          <option value="No autorizado">No autorizado</option>
                           
               </select>
             </td>
@@ -244,7 +251,7 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
         ) : (
           <>
             <td>{usuarios.nombre}</td>
-            <td>{usuarios.valor}</td>
+            <td>{usuarios.rol}</td>
             <td>{usuarios.estado}</td>
           </>
         )}
