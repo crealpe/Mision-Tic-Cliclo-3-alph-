@@ -5,8 +5,10 @@
 import Express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
 import Cors from 'cors';
+import dotenv from 'dotenv';
 
-const stringConexion = 'mongodb+srv://Admin:Sis01@proyectoconcesionario.rdqu7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+dotenv.config({path: './.env'});
+const stringConexion = process.env.DATABASE_URL;
 
 const client = new MongoClient(stringConexion, {
   useNewUrlParser: true,
@@ -214,8 +216,8 @@ const main = () => {
     }
     baseDeDatos = db.db('sprint3');
     console.log('baseDeDatos exitosa');
-    return app.listen(5000, () => {
-      console.log('escuchando puerto 5000');
+    return app.listen(process.env.PORT, () => {
+      console.log(`escuchando puerto ${process.env.PORT}`);
     });
   });
 };
