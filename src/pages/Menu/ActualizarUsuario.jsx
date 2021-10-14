@@ -77,7 +77,7 @@ const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})
 
       const options = {
       method: 'POST',
-      url: 'http://localhost:5000/usuarios/nuevo',
+      url: 'http://localhost:5000/usuarios/',
       headers: { 'Content-Type': 'application/json' },
       data: { nombre: nuevoUsuario.nombre, rol:nuevoUsuario.rol,estado:nuevoUsuario.estado},
       };
@@ -190,9 +190,9 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
   const actualizarUsuario = async () => {
       const options = {
         method: 'PATCH',
-        url: 'http://localhost:5000/usuarios/editar/',
+        url: `http://localhost:5000/usuarios/${usuarios._id}/`,
         headers: { 'Content-Type': 'application/json' },
-        data: { ...infoNuevoUsuario, id: usuarios._id },
+        data: { ...infoNuevoUsuario},
       };
   
       await axios

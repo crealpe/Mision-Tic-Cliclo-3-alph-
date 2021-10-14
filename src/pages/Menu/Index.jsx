@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { obtenerVentas } from 'utils/api';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
-
 import { ToastContainer, toast } from 'react-toastify';
-import { Dialog, Tooltip } from '@material-ui/core';
+import { Tooltip } from '@material-ui/core';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Venta = () => {
@@ -89,9 +88,9 @@ const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
     
         const options = {
           method: 'POST',
-          url: 'http://localhost:5000/ventas/nuevo',
+          url: 'http://localhost:5000/ventas/',
           headers: { 'Content-Type': 'application/json' },
-          data: { fecha: nuevaVenta.fecha, numeroV: nuevaVenta.numeroV, identificacionC: nuevaVenta.identificacionC,
+          data: { fecha: nuevaVenta.fecha, identificacionC: nuevaVenta.identificacionC,
             nombreC:nuevaVenta.nombreC,vendedor:nuevaVenta.vendedor,producto:nuevaVenta.producto,cantidad:nuevaVenta.cantidad,
             valor:nuevaVenta.valor,estado:nuevaVenta.estado},
         };
@@ -267,9 +266,9 @@ const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
     const actualizarVenta = async () => {
           const options = {
           method: 'PATCH',
-          url: 'http://localhost:5000/ventas/editar/',
+          url: `http://localhost:5000/ventas/${venta._id}/`,
           headers: { 'Content-Type': 'application/json' },
-          data: { ...infoNuevaVenta, id: venta._id },
+          data: { ...infoNuevaVenta},
         };
     
         await axios

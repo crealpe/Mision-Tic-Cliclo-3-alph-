@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { Dialog, Tooltip } from '@material-ui/core';
+//import { Dialog, Tooltip } from '@material-ui/core';
+import { Tooltip } from '@material-ui/core';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Producto = () => {
@@ -77,7 +78,7 @@ const FormularioCreacionProductos=({setMostrarTabla, listaProductos, setProducto
 
         const options = {
         method: 'POST',
-        url: 'http://localhost:5000/productos/nuevo',
+        url: 'http://localhost:5000/productos/',
         headers: { 'Content-Type': 'application/json' },
         data: { nombre: nuevoProducto.nombre, valor:nuevoProducto.valor,estado:nuevoProducto.estado},
         };
@@ -184,9 +185,9 @@ const TablaProductos = ({ listaProductos,setEjecutarConsulta,setMostrarTabla}) =
     const actualizarProducto = async () => {
         const options = {
           method: 'PATCH',
-          url: 'http://localhost:5000/productos/editar/',
+          url: `http://localhost:5000/productos/${productos._id}/`,
           headers: { 'Content-Type': 'application/json' },
-          data: { ...infoNuevoProducto, id: productos._id },
+          data: { ...infoNuevoProducto},
         };
     
         await axios
