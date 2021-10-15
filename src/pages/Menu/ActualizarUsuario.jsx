@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { nanoid } from 'nanoid';
-import axios from 'axios';
+import { obtenerUsuarios, crearUsuarios, editarUsuarios } from 'utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import { Tooltip } from '@material-ui/core';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,21 +10,18 @@ const ActualizarUsuario = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [textoBoton, setTextoBoton] = useState('Crear Nuevo');
   const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
-  const obtenerUsuarios = async () => {
-    const options = { method: 'GET', url: 'http://localhost:5000/usuarios/' };
-    await axios
-      .request(options)
-      .then(function (response) {
-        setUsuarios(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    setEjecutarConsulta(false);
-  }    
+  
   useEffect(() => {
     if (ejecutarConsulta) {
-      obtenerUsuarios();        
+      obtenerUsuarios(
+        (response) => {
+          setUsuarios(response.data);
+          setEjecutarConsulta(false);
+        },
+        (error) => {
+          console.error(error);
+        }  
+      );       
     }
   }, [ejecutarConsulta]);
 
@@ -75,24 +72,17 @@ const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})
           nuevoUsuario[key] = value;
       });
 
-      const options = {
-      method: 'POST',
-      url: 'http://localhost:5000/usuarios/',
-      headers: { 'Content-Type': 'application/json' },
-      data: { nombre: nuevoUsuario.nombre, rol:nuevoUsuario.rol,estado:nuevoUsuario.estado},
-      };
-
-      await axios
-      .request(options)
-      .then(function (response) {
+      await crearUsuarios({ nombre: nuevoUsuario.nombre, rol:nuevoUsuario.rol,estado:nuevoUsuario.estado },
+        (response) => {
           console.log(response.data);
-          toast.success('Usuario agregado con éxito');
-      })
-      .catch(function (error) {
+          toast.success('Usuarios agregado con éxito');  
+        },
+        (error) => {
           console.error(error);
-          toast.error('Error creando el usuario');
-      });
-
+          toast.error('Error creando el Usuario');  
+        }  
+      );
+      
       setMostrarTabla(true);
   
   };
@@ -105,8 +95,8 @@ const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})
                       <input className="input" type='text' name="nombre" placeholder='Nombre usuario' required></input>
                   
                       <label className="mx-5" htmlFor='rol'>Rol Usuario: </label>
-                      <select className="input" defaultValue="0" name="rol">
-                          <option value = "0" disabled> Seleccione Rol</option>
+                      <select className="input" defaultValue="" name="rol" required>
+                          <option value = "" disabled> Seleccione Rol</option>
                           <option value="Administrador">Administrador</option>
                           <option value="Vendedor">Vendedor</option>
                                                     
@@ -188,26 +178,18 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
 
   });
   const actualizarUsuario = async () => {
-      const options = {
-        method: 'PATCH',
-        url: `http://localhost:5000/usuarios/${usuarios._id}/`,
-        headers: { 'Content-Type': 'application/json' },
-        data: { ...infoNuevoUsuario},
-      };
-  
-      await axios
-        .request(options)
-        .then(function (response) {
-          console.log(response.data);
-          toast.success('Usuario con éxito');
-          setEdit(false);
-          setEjecutarConsulta(true);
-        })
-        .catch(function (error) {
-          toast.error('Error modificando el usuario');
-          console.error(error);
-      });
-      
+    await editarUsuarios(usuarios._id,infoNuevoUsuario,
+      (response) => {
+        console.log(response.data);
+        toast.success('Usuario modificado con éxito');
+        setEdit(false);
+        setEjecutarConsulta(true);  
+      },
+      (error) => {
+        toast.error('Error modificando el Usuario');
+        console.error(error);  
+      }
+    );      
   };
     return (
       <tr>
@@ -291,6 +273,6 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
         </td>
       </tr>
     );
-  };  
+};  
 
 export default ActualizarUsuario

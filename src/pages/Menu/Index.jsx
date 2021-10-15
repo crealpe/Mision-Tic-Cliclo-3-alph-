@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { obtenerVentas } from 'utils/api';
+import { obtenerVentas, crearVentas,editarVentas, obtenerProductos } from 'utils/api';
 import { nanoid } from 'nanoid';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Tooltip } from '@material-ui/core';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +14,15 @@ const Venta = () => {
     useEffect(() => {
         console.log('consulta', ejecutarConsulta);
         if (ejecutarConsulta) {
-            obtenerVentas(setVentas, setEjecutarConsulta);
+            obtenerVentas(
+              (response) => {
+                setVentas(response.data);
+                setEjecutarConsulta(false);
+              },
+              (error) => {
+                console.error(error);
+              }  
+            );
         }
     }, [ejecutarConsulta]);
 
@@ -59,22 +66,21 @@ const Venta = () => {
 const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
     const form = useRef(null);
     const [productos, setProductos] = useState([]);
-    const obtenerProductos = async () => {
-      const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
-      await axios
-        .request(options)
-        .then(function (response) {
+    const ListarProductos = async () => {
+      await obtenerProductos(
+        (response) => {
           setProductos(response.data);
-        })
-        .catch(function (error) {
+        },
+        (error) => {
           console.error(error);
-        });
-      
+        }
+      );
+            
     }    
     useEffect(() => {
-     obtenerProductos();        
+      ListarProductos();        
     
-    }, [productos]);
+    }, []);
 
 
     const submitForm = async (e) => {
@@ -85,26 +91,19 @@ const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
         fd.forEach((value, key) => {
             nuevaVenta[key] = value;
         });
-    
-        const options = {
-          method: 'POST',
-          url: 'http://localhost:5000/ventas/',
-          headers: { 'Content-Type': 'application/json' },
-          data: { fecha: nuevaVenta.fecha, identificacionC: nuevaVenta.identificacionC,
-            nombreC:nuevaVenta.nombreC,vendedor:nuevaVenta.vendedor,producto:nuevaVenta.producto,cantidad:nuevaVenta.cantidad,
-            valor:nuevaVenta.valor,estado:nuevaVenta.estado},
-        };
-    
-        await axios
-          .request(options)
-          .then(function (response) {
+        
+        await crearVentas({ fecha: nuevaVenta.fecha, identificacionC: nuevaVenta.identificacionC,
+          nombreC:nuevaVenta.nombreC,vendedor:nuevaVenta.vendedor,producto:nuevaVenta.producto,cantidad:nuevaVenta.cantidad,
+          valor:nuevaVenta.valor,estado:nuevaVenta.estado},
+          (response) => {
             console.log(response.data);
-            toast.success('Venta agregada con éxito');
-          })
-          .catch(function (error) {
+            toast.success('Venta agregada con éxito');  
+          },
+          (error) => {
             console.error(error);
-            toast.error('Error creando la Venta');
-          });
+            toast.error('Error creando la Venta');  
+          }  
+        );
     
         setMostrarTabla(true);
       };
@@ -131,8 +130,8 @@ const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
                     </li>  
                     <li className="flex flex-col">
                         <label className="mx-5" htmlFor='vendedor'>Vendedor: </label>
-                        <select className="input" defaultValue="0" name="vendedor">
-                            <option value = "0" disabled> Seleccione Vendedor</option>
+                        <select className="input" defaultValue="" name="vendedor" required>
+                            <option value = "" disabled> Seleccione Vendedor</option>
                             <option value="Vendedor 1">Vendedor 1</option>
                             <option value="Vendedor 2">Vendedor 2</option>
                             <option value="Vendedor 3">Vendedor 3</option>
@@ -141,11 +140,11 @@ const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
                     </li>     
                     <li className="flex flex-col">
                         <label className="mx-5" htmlFor='producto'>Producto: </label>
-                        <select className="input" defaultValue="0" name="producto">
-                            <option value = "0" disabled> Seleccione Producto</option>
+                        <select className="input" defaultValue="" name="producto" required>
+                            <option value = "" disabled> Seleccione Producto</option>
                             {productos.map((productos) => {
                                 return (
-                                  <option value={productos.nombre}>{productos.nombre}</option>
+                                  <option key={nanoid()} value={productos.nombre}>{productos.nombre}</option>
                                 );
                             })}
                             
@@ -235,22 +234,20 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta,setMostrarTabla}) => {
 const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
     const [edit, setEdit] = useState(false);
     const [productos, setProductos] = useState([]);
-    const obtenerProductos = async () => {
-      const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
-      await axios
-        .request(options)
-        .then(function (response) {
+    const ListarProductos = async () => {
+      await obtenerProductos(
+        (response) => {
           setProductos(response.data);
-        })
-        .catch(function (error) {
+        },
+        (error) => {
           console.error(error);
-        });
-      
+        }
+      );
+            
     }    
     useEffect(() => {
-     obtenerProductos();        
-    
-    }, [productos]);
+      ListarProductos();        
+    }, []);
 
     const [infoNuevaVenta, setInfoNuevaVenta] = useState({
         fecha: venta.fecha,
@@ -264,27 +261,19 @@ const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
 
     });
     const actualizarVenta = async () => {
-          const options = {
-          method: 'PATCH',
-          url: `http://localhost:5000/ventas/${venta._id}/`,
-          headers: { 'Content-Type': 'application/json' },
-          data: { ...infoNuevaVenta},
-        };
-    
-        await axios
-          .request(options)
-          .then(function (response) {
-            console.log(response.data);
-            toast.success('Venta modificada con éxito');
-            setEdit(false);
-            setEjecutarConsulta(true);
-          })
-          .catch(function (error) {
-            toast.error('Error modificando la venta');
-            console.error(error);
-        });
-        
-    };
+      await editarVentas(venta._id,infoNuevaVenta,
+        (response) => {
+          console.log(response.data);
+          toast.success('Venta modificada con éxito');
+          setEdit(false);
+          setEjecutarConsulta(true);  
+        },
+        (error) => {
+          toast.error('Error modificando la venta');
+          console.error(error);  
+        }
+      );      
+    };       
       return (
         <tr>
           {edit ? (
@@ -343,7 +332,7 @@ const FilaVenta = ({ venta, setEjecutarConsulta, setMostrarTabla }) => {
                 >
                     {productos.map((productos) => {
                         return (
-                          <option value={productos.nombre}>{productos.nombre}</option>
+                          <option key={nanoid()} value={productos.nombre}>{productos.nombre}</option>
                         );
                     })}
                 </select>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { nanoid } from 'nanoid';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { obtenerProductos, crearProductos, editarProductos } from 'utils/api';
 //import { Dialog, Tooltip } from '@material-ui/core';
 import { Tooltip } from '@material-ui/core';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,21 +11,18 @@ const Producto = () => {
     const [productos, setProductos] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
-    const obtenerProductos = async () => {
-      const options = { method: 'GET', url: 'http://localhost:5000/productos/' };
-      await axios
-        .request(options)
-        .then(function (response) {
-          setProductos(response.data);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-      setEjecutarConsulta(false);
-    }    
+    
     useEffect(() => {
       if (ejecutarConsulta) {
-        obtenerProductos();        
+        obtenerProductos(
+          (response) => {
+            setProductos(response.data);
+            setEjecutarConsulta(false);
+          },
+          (error) => {
+            console.error(error);
+          }  
+        );
       }
     }, [ejecutarConsulta]);
 
@@ -76,24 +73,17 @@ const FormularioCreacionProductos=({setMostrarTabla, listaProductos, setProducto
             nuevoProducto[key] = value;
         });
 
-        const options = {
-        method: 'POST',
-        url: 'http://localhost:5000/productos/',
-        headers: { 'Content-Type': 'application/json' },
-        data: { nombre: nuevoProducto.nombre, valor:nuevoProducto.valor,estado:nuevoProducto.estado},
-        };
-
-        await axios
-        .request(options)
-        .then(function (response) {
+        await crearProductos({ nombre: nuevoProducto.nombre, valor:nuevoProducto.valor,estado:nuevoProducto.estado},
+          (response) => {
             console.log(response.data);
-            toast.success('Producto Agregado con éxito');
-        })
-        .catch(function (error) {
+            toast.success('Producto agregado con éxito');  
+          },
+          (error) => {
             console.error(error);
-            toast.error('Error creando el Producto');
-        });
-
+            toast.error('Error creando el Producto');  
+          }  
+        );
+        
         setMostrarTabla(true);
     
     };
@@ -109,8 +99,8 @@ const FormularioCreacionProductos=({setMostrarTabla, listaProductos, setProducto
                         <input className="input" type="number" name = "valor" placeholder='Valor' required></input>
                     
                         <label className="mx-5" htmlFor='estado'>Estado Producto: </label>
-                        <select className="input" defaultValue="0" name="estado">
-                            <option value = "0" disabled> Seleccione Estado</option>
+                        <select className="input" defaultValue="" name="estado" required>
+                            <option value = "" disabled> Seleccione Estado</option>
                             <option value="Disponible">Disponible</option>
                             <option value="No Disponible">No Disponible</option>
                             
@@ -183,26 +173,19 @@ const TablaProductos = ({ listaProductos,setEjecutarConsulta,setMostrarTabla}) =
 
     });
     const actualizarProducto = async () => {
-        const options = {
-          method: 'PATCH',
-          url: `http://localhost:5000/productos/${productos._id}/`,
-          headers: { 'Content-Type': 'application/json' },
-          data: { ...infoNuevoProducto},
-        };
+      await editarProductos(productos._id,infoNuevoProducto,
+        (response) => {
+          console.log(response.data);
+          toast.success('Producto modificado con éxito');
+          setEdit(false);
+          setEjecutarConsulta(true);  
+        },
+        (error) => {
+          toast.error('Error modificando el producto');
+          console.error(error);  
+        }
+      );      
     
-        await axios
-          .request(options)
-          .then(function (response) {
-            console.log(response.data);
-            toast.success('Producto con éxito');
-            setEdit(false);
-            setEjecutarConsulta(true);
-          })
-          .catch(function (error) {
-            toast.error('Error modificando el producto');
-            console.error(error);
-        });
-        
     };
       return (
         <tr>
