@@ -144,6 +144,7 @@ const TablaUsuarios = ({ listaUsuarios,setEjecutarConsulta,setMostrarTabla}) => 
           <table className="tabla">
               <thead>
                   <tr className="bg-green-50">
+                  <th  className="border-2"> Email </th>  
                   <th  className="border-2"> Usuario </th>
                   <th  className="border-2"> Rol </th>
                   <th  className="border-2"> Estado </th>
@@ -172,10 +173,10 @@ const TablaUsuarios = ({ listaUsuarios,setEjecutarConsulta,setMostrarTabla}) => 
 const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
   const [edit, setEdit] = useState(false);
   const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
-      nombre: usuarios.nombre,
+      name: usuarios.name,
       rol: usuarios.rol,
-      estado: usuarios.estado
-
+      estado: usuarios.estado,
+      email: usuarios.email
   });
   const actualizarUsuario = async () => {
     await editarUsuarios(usuarios._id,infoNuevoUsuario,
@@ -196,14 +197,23 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
         {edit ? (
           
           <>
-              
+            <td>
+              <input
+                  className='bg-gray-50 border w-28 border-gray-400 p-0.5 rounded-lg m-0.5'
+                  type='text' disabled
+                  value={infoNuevoUsuario.email}
+                  onChange={(e) =>
+                      setInfoNuevoUsuario({ ...infoNuevoUsuario, email: e.target.value })
+                  }
+              />
+            </td>  
             <td>
               <input
                   className='bg-gray-50 border w-28 border-gray-400 p-0.5 rounded-lg m-0.5'
                   type='text'
-                  value={infoNuevoUsuario.nombre}
+                  value={infoNuevoUsuario.name}
                   onChange={(e) =>
-                      setInfoNuevoUsuario({ ...infoNuevoUsuario, nombre: e.target.value })
+                      setInfoNuevoUsuario({ ...infoNuevoUsuario, name: e.target.value })
                   }
               />
             </td>
@@ -213,6 +223,7 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
               value ={infoNuevoUsuario.rol} onChange={(e) =>
                   setInfoNuevoUsuario({ ...infoNuevoUsuario, rol: e.target.value })
               }>
+                          <option value="sin rol">sin rol</option>
                           <option value="Administrador">Administrador</option>
                           <option value="Vendedor">Vendedor</option>
                           
@@ -232,7 +243,8 @@ const FilaUsuario = ({ usuarios, setEjecutarConsulta, setMostrarTabla}) => {
           </>
         ) : (
           <>
-            <td>{usuarios.nombre}</td>
+            <td>{usuarios.email}</td>
+            <td>{usuarios.name}</td>
             <td>{usuarios.rol}</td>
             <td>{usuarios.estado}</td>
           </>
