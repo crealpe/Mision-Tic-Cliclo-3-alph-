@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 const Header = () => {
+    const { loginWithRedirect } = useAuth0();
     return (
         <nav  className='bg-purple-400 py-4'>
             <ul className="flex w-full justify-between">
@@ -9,7 +11,7 @@ const Header = () => {
                 </li>
                 <li>  
                     <Link to= '/'>
-                        <button type="button" className="botonGenerico secondaryButton mx-4 w-36">Ingresar</button>
+                        <button onClick={() => loginWithRedirect()} type="button" className="botonGenerico secondaryButton mx-4 w-36">Ingresar</button>
                     </Link>  
                     <Link to= '/registro'>
                         <button type="button" className="botonGenerico secondaryButton mx-4 w-36">Registrar</button>

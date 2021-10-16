@@ -1,7 +1,16 @@
 import axios from 'axios';
 
+const getToken = () => {
+  return `Bearer ${localStorage.getItem('token')}`;
+};
+
 export const obtenerVentas = async (successCalback, errorCalback) => {
-  const options = { method: 'GET', url: 'http://localhost:5000/ventas/' };
+  const options = { method: 'GET', url: 'http://localhost:5000/ventas/',
+  headers: {
+    Authorization: getToken(),
+  },
+  };
+  
   await axios.request(options).then(successCalback).catch(errorCalback); 
 };
 

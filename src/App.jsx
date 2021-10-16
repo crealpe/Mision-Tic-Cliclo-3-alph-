@@ -7,9 +7,16 @@ import Producto from 'pages/Menu/Producto';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from 'layouts/Layout';
 import LayoutMenu from 'layouts/LayoutMenu';
-
+import { Auth0Provider } from '@auth0/auth0-react';
+//import PrivateRoute from 'components/PrivateRoute';
 function App() {
   return (
+    <Auth0Provider
+      domain='misiontic3.us.auth0.com'
+      clientId='g9sMPUByRUpNGl72wO0BoZN7j5qXPjMB'
+      redirectUri='http://localhost:3000'
+      audience='api-ventas-mintic'
+    >
     <div>
       <Router>
         <Switch>
@@ -43,6 +50,7 @@ function App() {
         </Switch>
      </Router>
     </div>
+    </Auth0Provider>
   );
 }
 
