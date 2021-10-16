@@ -1,4 +1,5 @@
 import 'styles/styles.css';
+import React, { useState } from 'react';
 import ActualizarUsuario from 'pages/Menu/ActualizarUsuario';
 import Index from 'pages/Index';
 import Registro from 'pages/Registro';
@@ -9,7 +10,9 @@ import Layout from 'layouts/Layout';
 import LayoutMenu from 'layouts/LayoutMenu';
 import { Auth0Provider } from '@auth0/auth0-react';
 //import PrivateRoute from 'components/PrivateRoute';
+import { UserContext } from 'context/userContext';
 function App() {
+  const [userData, setUserData] = useState({});
   return (
     <Auth0Provider
       domain='misiontic3.us.auth0.com'
@@ -18,7 +21,8 @@ function App() {
       audience='api-ventas-mintic'
     >
     <div>
-      <Router>
+    <UserContext.Provider value={{ userData, setUserData }}>
+        <Router>
         <Switch>
           <Route path={['/menu','/menu/actualizar-usuario','/menu/producto']}>
             <LayoutMenu> 
@@ -49,6 +53,8 @@ function App() {
           </Route> 
         </Switch>
      </Router>
+     </UserContext.Provider>
+      
     </div>
     </Auth0Provider>
   );

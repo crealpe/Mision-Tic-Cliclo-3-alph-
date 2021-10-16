@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 const Sidebar = () => {
-    const { logout } = useAuth0();
-
+    const { user,logout } = useAuth0();
+  console.log("datos usuario",user);  
   const cerrarSesion = () => {
     logout({ returnTo: 'http://localhost:3000' });
     localStorage.setItem('token', null);
