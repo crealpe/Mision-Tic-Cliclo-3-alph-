@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import PrivateComponent from './PrivateComponent';
 const Sidebar = () => {
     const { user,logout } = useAuth0();
   console.log("datos usuario",user);  
@@ -16,25 +17,30 @@ const Sidebar = () => {
                 </li>
                 <div  className="my-10">
 
-                <li>  
+                <li> 
+                <PrivateComponent roleList={['Administrador','Vendedor']}> 
                     <Link to= '/menu'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Ventas</button>
                     </Link>
+                </PrivateComponent>    
                 </li>
-                <li>   
+                <li>  
+                <PrivateComponent roleList={['Administrador','Vendedor']}>  
                     <Link to= '/menu/producto'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Productos</button>
                     </Link>
+                </PrivateComponent>     
                 </li>
                 <li>   
+                <PrivateComponent roleList={['Administrador']}>
                     <Link to= '/menu/actualizar-usuario'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Roles y Usuarios</button>
                     </Link>
+                </PrivateComponent>
                 </li>
+                                
                 <li>   
-                
                     <button onClick={() => cerrarSesion()} type="button" className="botonGenerico secondaryButton my-4 w-52">Cerrar Sesión</button>
-                 
                 </li>
                 </div>
             </ul>
