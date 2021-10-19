@@ -7,6 +7,7 @@ import jwks from 'jwks-rsa';
 import rutasVentas from './views/ventas/rutas.js';
 import rutasProductos from './views/productos/rutas.js';
 import rutasUsuarios from './views/usuarios/rutas.js';
+import autorizacionEstadoUsuario from './middleware/autorizacionEstadoUsuario.js';
 
 dotenv.config({ path: './.env' });
 
@@ -28,7 +29,7 @@ algorithms: ['RS256']
 });
 
 app.use(jwtCheck);
-
+app.use(autorizacionEstadoUsuario);
 app.use(rutasVentas);
 app.use(rutasProductos);
 app.use(rutasUsuarios);
