@@ -8,6 +8,7 @@ const LayoutMenu = ({children}) => {
     useAuth0();
   const [loadingUserInformation, setLoadingUserInformation] = useState(false);
   const { setUserData } = useUser();
+
   useEffect(() => {
     const fetchAuth0Token = async () => {
       // si se quieren hacer validaciones con el token:
@@ -42,15 +43,14 @@ const LayoutMenu = ({children}) => {
     if (isAuthenticated) {
       fetchAuth0Token();
     }
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [isAuthenticated, getAccessTokenSilently, logout, setUserData]);
 
- // if (isLoading || loadingUserInformation)
-  //  return <ReactLoading type='cylon' color='#abc123' height={667} width={375} />;
+  if (isLoading || loadingUserInformation)
+    //return <ReactLoading type='cylon' color='#abc123' height={667} width={375} />;
 
   if (!isAuthenticated) {
     return loginWithRedirect();
   }
- 
   return (
       <div className="flex justify-between w-screen h-screen">
           <Sidebar />

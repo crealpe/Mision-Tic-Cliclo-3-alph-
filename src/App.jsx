@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ActualizarUsuario from 'pages/Menu/ActualizarUsuario';
 import Index from 'pages/Index';
 import Registro from 'pages/Registro';
-import IndexM from 'pages/Menu/Index';
+import Venta from 'pages/Menu/Venta';
 import Producto from 'pages/Menu/Producto';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from 'layouts/Layout';
@@ -11,6 +11,7 @@ import LayoutMenu from 'layouts/LayoutMenu';
 import { Auth0Provider } from '@auth0/auth0-react';
 import PrivateRoute from 'components/PrivateRoute';
 import { UserContext } from 'context/userContext';
+import Admin from 'pages/Menu/Index';
 function App() {
   const [userData, setUserData] = useState({});
   return (
@@ -24,7 +25,7 @@ function App() {
     <UserContext.Provider value={{ userData, setUserData }}>
       <Router>
         <Switch>
-          <Route path={['/menu','/menu/actualizar-usuario','/menu/producto']}>
+          <Route path={['/menu','/menu/venta','/menu/actualizar-usuario','/menu/producto']}>
             <LayoutMenu> 
               <Switch>
                 <Route path='/menu/actualizar-usuario'>
@@ -37,15 +38,18 @@ function App() {
                   <Producto />
                 </PrivateRoute>    
                 </Route> 
-                <Route path='/menu'>
+                <Route path='/menu/venta'>
                 <PrivateRoute roleList={['Administrador','Vendedor']}> 
-                  <IndexM />
+                  <Venta />
                 </PrivateRoute>    
+                </Route>  
+                <Route path='/menu'>
+                  <Admin />
                 </Route>  
               </Switch>
             </LayoutMenu>
           </Route>
-          <Route path={['/','/registro']}>
+           <Route path={['/','/registro']}>
             <Layout> 
               <Switch>
                 <Route path='/registro'>
@@ -56,7 +60,7 @@ function App() {
                 </Route>
               </Switch>  
             </Layout>   
-          </Route> 
+          </Route>  
         </Switch>
      </Router>
      </UserContext.Provider>

@@ -6,7 +6,7 @@ const Sidebar = () => {
     const { user,logout } = useAuth0();
   console.log("datos usuario",user);  
   const cerrarSesion = () => {
-    logout({ returnTo: 'http://localhost:3000' });
+    logout({ returnTo: 'http://localhost:3000/menu' });
     localStorage.setItem('token', null);
   };
     return (
@@ -19,7 +19,7 @@ const Sidebar = () => {
 
                 <li> 
                 <PrivateComponent roleList={['Administrador','Vendedor']}> 
-                    <Link to= '/menu'> 
+                    <Link to= '/menu/venta'> 
                     <button className="botonGenerico secondaryButton my-4 w-52">Ventas</button>
                     </Link>
                 </PrivateComponent>    
