@@ -6,7 +6,7 @@ const Sidebar = () => {
     const { user,logout } = useAuth0();
   console.log("datos usuario",user);  
   const cerrarSesion = () => {
-    logout({ returnTo: 'http://localhost:3000/menu' });
+    logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/menu' });
     localStorage.setItem('token', null);
   };
     return (
