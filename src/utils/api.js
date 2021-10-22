@@ -1,4 +1,8 @@
 import axios from 'axios';
+
+// const baseURL = "http://localhost:5000"
+const baseURL = 'https://blooming-brook-04552.herokuapp.com';
+
 const getToken = () => {
   return `Bearer ${localStorage.getItem('token')}`;
 };
@@ -6,7 +10,7 @@ const getToken = () => {
 export const obtenerDatosUsuario = async (successCallback, errorCallback) => {
   const options = {
     method: 'GET',
-    url: 'http://localhost:5000/usuarios/self/',
+    url: `${baseURL}/usuarios/self/`,
     headers: {
       Authorization: getToken(), // 3. enviarle el token a backend
     },
@@ -16,7 +20,7 @@ export const obtenerDatosUsuario = async (successCallback, errorCallback) => {
 
 
 export const obtenerVentas = async (successCalback, errorCalback) => {
-  const options = { method: 'GET', url: 'http://localhost:5000/ventas/',
+  const options = { method: 'GET', url: `${baseURL}/ventas/`,
   headers: {
     Authorization: getToken(),
   },
@@ -26,7 +30,7 @@ export const obtenerVentas = async (successCalback, errorCalback) => {
 };
 
 export const crearVentas = async (data,successCalback, errorCalback) => {
-  const options = { method: 'POST', url: 'http://localhost:5000/ventas/',
+  const options = { method: 'POST', url: `${baseURL}/ventas/`,
   headers: { 'Content-Type': 'application/json',Authorization: getToken() },
   data, 
   };
@@ -35,7 +39,7 @@ export const crearVentas = async (data,successCalback, errorCalback) => {
 
 export const editarVentas = async (id, data, successCalback, errorCalback) => {
   const options = { method: 'PATCH',
-  url: `http://localhost:5000/ventas/${id}/`,
+  url: `${baseURL}/ventas/${id}/`,
   headers: { 'Content-Type': 'application/json',Authorization: getToken() },
   data,
   };
@@ -43,7 +47,7 @@ export const editarVentas = async (id, data, successCalback, errorCalback) => {
 };
 
 export const obtenerProductos = async (successCalback, errorCalback) => {
-  const options = { method: 'GET', url: 'http://localhost:5000/productos/',
+  const options = { method: 'GET', url: `${baseURL}/productos/`,
   headers: {
     Authorization: getToken(),
   },
@@ -52,7 +56,7 @@ export const obtenerProductos = async (successCalback, errorCalback) => {
 };
 
 export const crearProductos = async (data,successCalback, errorCalback) => {
-  const options = { method: 'POST', url: 'http://localhost:5000/productos/',
+  const options = { method: 'POST', url: `${baseURL}/productos/`,
   headers: { 'Content-Type': 'application/json',Authorization: getToken() },
   data, 
   };
@@ -61,7 +65,7 @@ export const crearProductos = async (data,successCalback, errorCalback) => {
 
 export const editarProductos = async (id, data, successCalback, errorCalback) => {
   const options = { method: 'PATCH',
-  url: `http://localhost:5000/productos/${id}/`,
+  url: `${baseURL}/productos/${id}/`,
   headers: { 'Content-Type': 'application/json',Authorization: getToken() },
   data,
   };
@@ -69,7 +73,7 @@ export const editarProductos = async (id, data, successCalback, errorCalback) =>
 };
 
 export const obtenerUsuarios = async (successCalback, errorCalback) => {
-  const options = { method: 'GET', url: 'http://localhost:5000/usuarios/',
+  const options = { method: 'GET', url: `${baseURL}/usuarios/`,
   headers: {
     Authorization: getToken(),
   },
@@ -79,7 +83,7 @@ export const obtenerUsuarios = async (successCalback, errorCalback) => {
 
 
 export const crearUsuarios = async (data,successCalback, errorCalback) => {
-  const options = { method: 'POST', url: 'http://localhost:5000/usuarios/',
+  const options = { method: 'POST', url: `${baseURL}/usuarios/`,
   headers: { 'Content-Type': 'application/json',Authorization: getToken() },
   data, 
   };
@@ -88,7 +92,7 @@ export const crearUsuarios = async (data,successCalback, errorCalback) => {
 
 export const editarUsuarios = async (id, data, successCalback, errorCalback) => {
   const options = { method: 'PATCH',
-  url: `http://localhost:5000/usuarios/${id}/`,
+  url: `${baseURL}/usuarios/${id}/`,
   headers: { 'Content-Type': 'application/json',Authorization: getToken() },
   data,
   };
