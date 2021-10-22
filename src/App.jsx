@@ -18,7 +18,7 @@ function App() {
     <Auth0Provider
       domain='misiontic3.us.auth0.com'
       clientId='g9sMPUByRUpNGl72wO0BoZN7j5qXPjMB'
-      redirectUri='http://localhost:3000'
+      redirectUri='https://enigmatic-anchorage-22590.herokuapp.com/'
       audience='api-ventas-mintic'
     >
     <div>
