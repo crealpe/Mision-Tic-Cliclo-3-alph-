@@ -58,7 +58,7 @@ const ActualizarUsuario = () => {
           <ToastContainer position='bottom-center' autoClose={5000} />
       </div>
       
-  )
+  );
 }
 
 const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})=>{
@@ -118,7 +118,7 @@ const FormularioCreacionUsuarios=({setMostrarTabla, listaUsuarios, setUsuarios})
                 
           </form>
       </div>
-  )
+  );
 };
 const TablaUsuarios = ({ listaUsuarios,setEjecutarConsulta,setMostrarTabla}) => {
   const [UsuariosFiltrados, setUsuariosFiltrados] = useState(listaUsuarios);

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 const Header = () => {
     
     return (
@@ -8,9 +8,10 @@ const Header = () => {
                 <li className='text-center font-extrabold text-3xl text-gray-900'>
                 Alph@ Team
                 </li>
-                <li>  
+                <li> 
+                
                     {/* <Link to= '/'>
-                        <button type="button" className="botonGenerico secondaryButton mx-4 w-36">Ingresar</button>
+                     <button type="button" onClick={() => loginWithRedirect()} className="botonGenerico secondaryButton mx-4 w-36">Ingresar</button>   
                     </Link>  
                     <Link to= '/registro'>
                         <button type="button" className="botonGenerico secondaryButton mx-4 w-36">Registrar</button>
@@ -21,7 +22,7 @@ const Header = () => {
             </ul>
            
         </nav>
-    )
+    );
 }
 
 export default Header

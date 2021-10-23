@@ -1,23 +1,16 @@
+import React from 'react';
 import { Link } from "react-router-dom";
-
-function Index(){
+const Index = () => {
     return(
         <div>
             <h2 className="titulo">Inicio de sesion</h2>
-            <form>
                 <div className="contenido">
-                    {/* <label className="label">Email: </label>
-                    <input className="input" type='email' placeholder='Ingrese su email' required></input>
-                    <label className="label">Password: </label>
-                    <input className="input" type='password' placeholder='Ingrese su password' required></input> */}
                     <Link to='/menu'>
-                    <button className="botoninicio" type='submit'>Ingresar</button>
+                    <button className="botoninicio" type="button">Ingresar</button>
                     </Link>
-                    
+                                 
                 </div>
-
-            </form>
-        </div>
+       </div>
     );    
 }
 export default Index;

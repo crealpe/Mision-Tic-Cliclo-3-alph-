@@ -20,7 +20,7 @@ const Registro = () => {
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
 export default Registro

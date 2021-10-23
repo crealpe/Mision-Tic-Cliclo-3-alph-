@@ -6,7 +6,8 @@ const Sidebar = () => {
     const { user,logout } = useAuth0();
   console.log("datos usuario",user);  
   const cerrarSesion = () => {
-    logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/menu' });
+    //logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/menu' });
+    logout({ returnTo: 'http://localhost:3000/menu' });
     localStorage.setItem('token', null);
   };
     return (
@@ -45,7 +46,7 @@ const Sidebar = () => {
                 </div>
             </ul>
         </nav>
-    )
+    );
 }
 
 export default Sidebar

@@ -60,7 +60,7 @@ const Venta = () => {
             <ToastContainer position='bottom-center' autoClose={5000} />
         </div>
         
-    )
+    );
 }
 
 const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
@@ -169,7 +169,7 @@ const FormularioCreacionVentas=({setMostrarTabla, listaVentas, setVentas})=>{
                   
             </form>
         </div>
-    )
+    );
 };
 const TablaVentas = ({ listaVentas, setEjecutarConsulta,setMostrarTabla}) => {
     const [ventasFiltradas, setVentasFiltradas] = useState(listaVentas);

@@ -25,7 +25,7 @@ const LayoutMenu = ({children}) => {
       });
       // 2. recibir token de auth0
       localStorage.setItem('token', accessToken);
-      console.log(accessToken);
+      console.log("muestra token",accessToken);
       // 3. enviarle el token a el backend
       await obtenerDatosUsuario(
         (response) => {
@@ -36,7 +36,8 @@ const LayoutMenu = ({children}) => {
         (err) => {
           console.log('err', err);
           setLoadingUserInformation(false);
-          logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/' });
+          //logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/' });
+          logout({ returnTo: 'http://localhost:3000/menu' });
         }
       );
     };
@@ -45,9 +46,8 @@ const LayoutMenu = ({children}) => {
     }
   }, [isAuthenticated, getAccessTokenSilently, logout, setUserData]);
 
-  if (isLoading || loadingUserInformation)
-    //return <ReactLoading type='cylon' color='#abc123' height={667} width={375} />;
-
+  //if (isLoading || loadingUserInformation)
+   // console.log("autenticado es",isAuthenticated)
   if (!isAuthenticated) {
     return loginWithRedirect();
   }
@@ -58,7 +58,7 @@ const LayoutMenu = ({children}) => {
               {children}
           </main>    
       </div>
-  )
+  );
 }
 
 export default LayoutMenu;
