@@ -36,8 +36,8 @@ const LayoutMenu = ({children}) => {
         (err) => {
           console.log('err', err);
           setLoadingUserInformation(false);
-          //logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/' });
-          logout({ returnTo: 'http://localhost:3000/menu' });
+          logout({ returnTo: 'https://enigmatic-anchorage-22590.herokuapp.com/menu' });
+          //logout({ returnTo: 'http://localhost:3000/menu' });
         }
       );
     };
